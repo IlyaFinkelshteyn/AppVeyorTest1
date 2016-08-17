@@ -10,9 +10,13 @@ environment:
   buildconfig: Release
   matrix:
   - test_type: Integration.Testing
-    test_assemblies: UnitTestProject1\bin\$env:buildconfig\UnitTestProject1.dll
+    test_assemblies: IntegrationTestProject1\bin\$env:buildconfig\IntegrationTestProject1.dll
     test_category: Integration
     test_settings: AppVeyorTest1.testsettings
+  - test_type: Unit.Testing
+    test_assemblies: UnitTestProject1\bin\$env:buildconfig\UnitTestProject1.dll
+    test_category: Unit
+    test_settings:
 matrix:
     fast_finish: false
 xamarin:
@@ -22,7 +26,7 @@ xamarin:
   android: true
   ios: false
 init:
-#- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 clone_script:
 - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/clone-repo-retry.ps1'))
 install:
@@ -32,7 +36,7 @@ install:
 - ps: 7z x $zipPath | Out-Null
 - ps: Set-Content -path "$env:USERPROFILE\.xamarin-credentials" -value "xamarin.com,$env:XAMARIN_COOKIE"
 before_build:
-- xamarin-component.exe restore src\Scout.sln
+- xamarin-component.exe restore AppVeyorTest1.sln
 build_script:
 - msbuild.exe AppVeyorTest1.sln /t:Rebuild /p:Configuration=%buildconfig% /verbosity:minimal
 test_script:

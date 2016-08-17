@@ -37,9 +37,9 @@ namespace UnitTestProject1
         }
 
         [TestMethod, TestCategory("Integration")]
-        public void ATestThatNeverRuns()
+        public void ThisTestShouldNotBeRun()
         {
-            Assert.Fail("this test should not even run in AppVeyor right now");
+            // We should not get here, because the batch file should have not completed.
         }
     }
 }
