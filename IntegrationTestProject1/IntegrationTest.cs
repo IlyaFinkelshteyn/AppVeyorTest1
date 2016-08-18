@@ -14,6 +14,10 @@ namespace UnitTestProject1
             RunBatchCommands();
         }
 
+        [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool IsWow64Process([In] IntPtr processHandle, [Out, MarshalAs(UnmanagedType.Bool)] out bool wow64Process);
+
         private static void RunBatchCommands()
         {
             // Look in the solution for this batch file
@@ -32,6 +36,12 @@ namespace UnitTestProject1
             using (var process = new Process {StartInfo = startInfo})
             {
                 process.Start();
+
+                bool isWow64Process;
+                if (!IsWow64Process(process.Handle, out isWow64Process))
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                Console.WriteLine("isWow64Process: " + isWow64Process);
+
                 process.WaitForExit(); //We need to wait until this process completes and the CMD window closes
             }
         }
