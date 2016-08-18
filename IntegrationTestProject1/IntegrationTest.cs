@@ -40,7 +40,7 @@ namespace UnitTestProject1
 
                 bool isWow64Process;
                 if (!IsWow64Process(process.Handle, out isWow64Process))
-                    throw new Exception(Marshal.GetLastWin32Error());
+                    throw new Exception(Marshal.GetLastWin32Error().ToString());
                 Console.WriteLine("isWow64Process: " + isWow64Process);
 
                 process.WaitForExit(); //We need to wait until this process completes and the CMD window closes
