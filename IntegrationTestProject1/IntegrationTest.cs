@@ -21,6 +21,10 @@ namespace UnitTestProject1
 
         private static void RunBatchCommands()
         {
+
+            Console.WriteLine("64 OS? " + Environment.Is64BitOperatingSystem);
+            Console.WriteLine("64 Process? " + Environment.Is64BitProcess);
+
             // Look in the solution for this batch file
             var batchFilePath =
                 Environment.ExpandEnvironmentVariables(Environment.CurrentDirectory +
