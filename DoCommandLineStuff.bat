@@ -31,8 +31,8 @@ IF not %errorlevel% equ 0 (
 REM Setup the Visual Studio Build Environment
 call reg query HKLM\SOFTWARE\Microsoft\VisualStudio\SxS\VS7 /v 12.0
 IF %errorlevel% neq 0 GOTO :error
-CALL "%vs120comntools%\VsDevCmd.bat"
-IF %errorlevel% neq 0 GOTO :error
+REM CALL "%vs120comntools%\VsDevCmd.bat"
+REM IF %errorlevel% neq 0 GOTO :error
 
 ECHO:
 CALL SetColor.bat 0A "---- All Good it worked OK!"
